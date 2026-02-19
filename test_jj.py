@@ -45,11 +45,11 @@ for i, subfolder_name in enumerate(subfolders, 1):
     wf = ComfyWorkflowWrapper(WORKFLOW_PATH)
 
     # 3) Point the Load Image node to the uploaded file
-    wf.set_node_param("Load Image", "image", uploaded_name)
+    wf.set_node_param("load", "image", uploaded_name)
 
     # 4) Queue and wait for results
     try:
-        results = api.queue_and_wait_images(wf, "Save Image")
+        results = api.queue_and_wait_images(wf, "save")
 
         for filename, image_data in results.items():
             # Save with subfolder name as prefix for easy identification
