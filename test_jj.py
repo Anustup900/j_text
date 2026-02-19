@@ -3,7 +3,7 @@ import glob
 from comfy_api_simplified import ComfyApiWrapper, ComfyWorkflowWrapper
 
 # ── CONFIG ──────────────────────────────────────────────
-COMFY_URL = "http://0.0.0.0:7860/"
+COMFY_URL = "http://0.0.0.0:7860"
 WORKFLOW_PATH = "workflow_jj_grey_api.json"
 INPUT_FOLDER = "jj_d"   # folder containing subfolders
 OUTPUT_FOLDER = "jj_d_white_o"             # single output folder
