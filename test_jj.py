@@ -37,15 +37,15 @@ for i, subfolder_name in enumerate(subfolders, 1):
 
     print(f"[{i}/{len(subfolders)}] Processing '{subfolder_name}' → {os.path.basename(image_path)}")
 
-    # 1) Upload image to ComfyUI server
-    uploaded_name = f"{subfolder_name}_{os.path.basename(image_path)}"
-    api.upload_image(image_path, uploaded_name)
+    # 1) Upload image to ComfyUI server — returns metadata dict
+    meta = api.upload_image(image_path)
 
     # 2) Load workflow fresh each time (so changes don't accumulate)
     wf = ComfyWorkflowWrapper(WORKFLOW_PATH)
 
-    # 3) Point the Load Image node to the uploaded file
-    wf.set_node_param("load", "image", uploaded_name)
+    # 3) Point the Load Image node to the uploaded file using metadata
+    image_ref = f"{meta['subfolder']}/{meta['name']}" if meta.get('subfolder') else meta['name']
+    wf.set_node_param("load", "image", image_ref)
 
     # 4) Queue and wait for results
     try:
